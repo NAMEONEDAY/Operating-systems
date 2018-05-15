@@ -1,21 +1,25 @@
+/*ä½œè€…ï¼šCRJ*/
+
+
+
 #include "NamedPipeClient.h"
 
 
 void OpenNamedPipeInClient()
 {
-	//µÈ´ıÁ¬½ÓÃüÃû¹ÜµÀ
+	//ç­‰å¾…è¿æ¥å‘½åç®¡é“
 	if (!WaitNamedPipe(pPipeName1, NMPWAIT_WAIT_FOREVER))
 	{
-		cout << "ÃüÃû¹ÜµÀÊµÀı²»´æÔÚ ..." << endl << endl;
+		cout << "å‘½åç®¡é“å®ä¾‹ä¸å­˜åœ¨ ..." << endl << endl;
 		return;
 	}
 
-	//´ò¿ªÃüÃû¹ÜµÀ
+	//æ‰“å¼€å‘½åç®¡é“
 	hNamedPipe1 = CreateFile(pPipeName1, GENERIC_READ | GENERIC_WRITE,
 		0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (INVALID_HANDLE_VALUE == hNamedPipe1)
 	{
-		cout << "´ò¿ªÃüÃû¹ÜµÀÊ§°Ü ..." << endl << endl;
+		cout << "æ‰“å¼€å‘½åç®¡é“å¤±è´¥ ..." << endl << endl;
 		return;
 	}
 }
@@ -29,12 +33,12 @@ char *NamedPipeReadInClient()
 	pReadBuf = new char[1024];
 	memset(pReadBuf, 0, 1024);
 
-	//´ÓÃüÃû¹ÜµÀÖĞ¶ÁÈ¡Êı¾İ
+	//ä»å‘½åç®¡é“ä¸­è¯»å–æ•°æ®
 	if (!ReadFile(hNamedPipe1, pReadBuf, 1024, &dwRead, NULL))
 	{
-		cout << "¶ÁÈ¡Êı¾İÊ§°Ü ..." << endl << endl;
+		cout << "è¯»å–æ•°æ®å¤±è´¥ ..." << endl << endl;
 	}
-	//cout << "¶ÁÈ¡Êı¾İ³É¹¦£º    " << pReadBuf << endl << endl;
+	//cout << "è¯»å–æ•°æ®æˆåŠŸï¼š    " << pReadBuf << endl << endl;
 	return pReadBuf;
 }
 
@@ -43,13 +47,13 @@ void NamedPipeWriteInClient(char *pStr)
 {
 	DWORD                dwWrite;
 
-	//ÏòÃüÃû¹ÜµÀÖĞĞ´ÈëÊı¾İ
+	//å‘å‘½åç®¡é“ä¸­å†™å…¥æ•°æ®
 	if (!WriteFile(hNamedPipe1,pStr, strlen(pStr), &dwWrite, NULL))
 	{
-		cout << "Ğ´ÈëÊı¾İÊ§°Ü ..." << endl << endl;
+		cout << "å†™å…¥æ•°æ®å¤±è´¥ ..." << endl << endl;
 		return;
 	}
-	//cout << "Ğ´ÈëÊı¾İ³É¹¦£º    " << pStr << endl << endl;
+	//cout << "å†™å…¥æ•°æ®æˆåŠŸï¼š    " << pStr << endl << endl;
 }
 
 void ClosePipe() {
